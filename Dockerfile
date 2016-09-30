@@ -1,21 +1,52 @@
-FROM risdenk/r-base-docker
+FROM openjdk:8-jdk
 
-RUN apk add --no-cache ca-certificates wget build-base cmake boost-dev linux-pam-dev bash git && \
-  update-ca-certificates
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ed \
+        less \
+        locales \
+        vim-tiny \
+        wget \
+        ca-certificates \
+        fonts-texgyre \
+    && rm -rf /var/lib/apt/lists/*
 
-ENV RSTUDIO_VERSION 0.99.903
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen en_US.utf8 \
+    && /usr/sbin/update-locale LANG=en_US.UTF-8
 
-RUN wget -qO- https://github.com/rstudio/rstudio/archive/v${RSTUDIO_VERSION}.tar.gz | tar zx -C / && mv /rstudio-* /rstudio
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
-RUN cd /rstudio/dependencies/common && \
-  ./install-dictionaries && \
-  ./install-mathjax && \
-  ./install-pandoc && \
-  ./install-packages
+ENV VER 1.0.31
 
-RUN mkdir -p /rstudio/build
+RUN rm -rf /var/lib/apt/lists/ \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    libssl1.0.0 \
+    ca-certificates \
+    file \
+    git \
+    libapparmor1 \
+    libedit2 \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    lsb-release \
+    psmisc \
+    python-setuptools \
+    sudo \
+    r-base \
+  && wget -q https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-${VER}-amd64.deb \
+  && dpkg -i rstudio-server-${VER}-amd64.deb \
+  && rm rstudio-server-*-amd64.deb \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
-WORKDIR /rstudio/build
+RUN echo "rstudio:rstudio" | chpasswd
 
-#RUN cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=RelMinSize
+ADD scripts /scripts
+
+EXPOSE 8787
+
+ENTRYPOINT /scripts/entrypoint.sh
 
