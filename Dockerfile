@@ -46,7 +46,7 @@ RUN useradd --create-home rstudio \
   && echo "rstudio:rstudio" | chpasswd
 
 RUN echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /root/.Rprofile \
-  && echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /rstudio/.Rprofile
+  && echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /home/rstudio/.Rprofile
 
 ADD scripts /scripts
 
