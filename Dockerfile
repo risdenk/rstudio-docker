@@ -24,6 +24,7 @@ RUN rm -rf /var/lib/apt/lists/ \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     libssl1.0.0 \
+    build-essential \
     ca-certificates \
     file \
     git \
@@ -32,7 +33,6 @@ RUN rm -rf /var/lib/apt/lists/ \
     libcurl4-openssl-dev \
     libssl-dev \
     lsb-release \
-    make \
     psmisc \
     python-setuptools \
     sudo \
