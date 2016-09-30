@@ -42,7 +42,8 @@ RUN rm -rf /var/lib/apt/lists/ \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
 
-RUN echo "rstudio:rstudio" | chpasswd
+RUN useradd rstudio \
+  && echo "rstudio:rstudio" | chpasswd
 
 ADD scripts /scripts
 
