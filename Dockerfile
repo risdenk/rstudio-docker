@@ -42,8 +42,11 @@ RUN rm -rf /var/lib/apt/lists/ \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
 
-RUN useradd rstudio \
+RUN useradd --create-home rstudio \
   && echo "rstudio:rstudio" | chpasswd
+
+RUN echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /root/.Rprofile \
+  && echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /rstudio/.Rprofile
 
 ADD scripts /scripts
 
