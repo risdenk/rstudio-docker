@@ -23,15 +23,18 @@ ENV VER 1.0.31
 RUN rm -rf /var/lib/apt/lists/ \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    libssl1.0.0 \
     build-essential \
     ca-certificates \
     file \
     git \
     libapparmor1 \
-    libedit2 \
+    libbz2-dev \
     libcurl4-openssl-dev \
+    libedit2 \
+    liblzma-dev \
+    libpcre3-dev \
     libssl-dev \
+    libssl1.0.0 \
     lsb-release \
     psmisc \
     python-setuptools \
