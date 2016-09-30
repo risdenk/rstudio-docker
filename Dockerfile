@@ -32,6 +32,7 @@ RUN rm -rf /var/lib/apt/lists/ \
     libcurl4-openssl-dev \
     libssl-dev \
     lsb-release \
+    make \
     psmisc \
     python-setuptools \
     sudo \
@@ -47,6 +48,11 @@ RUN useradd --create-home rstudio \
 
 RUN echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /root/.Rprofile \
   && echo 'options(repos = c(CRAN = "http://cran.rstudio.com/"))' >> /home/rstudio/.Rprofile
+
+RUN echo "export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" >> /root/.profile \
+  echo "export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server" >> /home/rstudio/.profile
+
+RUN R CMD javareconf
 
 ADD scripts /scripts
 
