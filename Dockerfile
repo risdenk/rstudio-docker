@@ -57,9 +57,11 @@ RUN echo "export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64:/us
 
 RUN R CMD javareconf
 
-ADD scripts /scripts
+RUN wget -qO- https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz | tar xz -C /
+
+COPY run.sh /etc/services.d/rstudio/run
 
 EXPOSE 8787
 
-ENTRYPOINT /scripts/entrypoint.sh
+ENTRYPOINT ["/init"]
 
