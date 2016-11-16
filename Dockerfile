@@ -18,7 +18,7 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-ENV VER 1.0.31
+ENV VER 1.0.44
 
 RUN rm -rf /var/lib/apt/lists/ \
   && apt-get update \
