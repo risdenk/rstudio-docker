@@ -18,7 +18,7 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-ENV VER 1.0.44
+ENV VER 1.0.136
 
 RUN rm -rf /var/lib/apt/lists/ \
   && apt-get update \
@@ -40,7 +40,7 @@ RUN rm -rf /var/lib/apt/lists/ \
     python-setuptools \
     sudo \
     r-base \
-  && wget -q https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-${VER}-amd64.deb \
+  && wget -q https://download2.rstudio.org/rstudio-server-${VER}-amd64.deb \
   && dpkg -i rstudio-server-${VER}-amd64.deb \
   && rm rstudio-server-*-amd64.deb \
   && apt-get clean \
