@@ -34,7 +34,6 @@ RUN rm -rf /var/lib/apt/lists/ \
     liblzma-dev \
     libpcre3-dev \
     libssl-dev \
-    libssl1.0.0 \
     lsb-release \
     psmisc \
     python-setuptools \
